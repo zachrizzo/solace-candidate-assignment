@@ -2,9 +2,20 @@
 
 import { useEffect, useState } from "react";
 
+// Define type for advocate
+interface Advocate {
+  firstName: string;
+  lastName: string;
+  city: string;
+  degree: string;
+  specialties: string[];
+  yearsOfExperience: string;
+  phoneNumber: string;
+}
+
 export default function Home() {
-  const [advocates, setAdvocates] = useState([]);
-  const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  const [advocates, setAdvocates] = useState<Advocate[]>([]);
+  const [filteredAdvocates, setFilteredAdvocates] = useState<Advocate[]>([]);
 
   useEffect(() => {
     console.log("fetching advocates...");
@@ -16,10 +27,13 @@ export default function Home() {
     });
   }, []);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
+    const searchTermElement = document.getElementById("search-term");
 
-    document.getElementById("search-term").innerHTML = searchTerm;
+    if (searchTermElement) {
+      searchTermElement.innerHTML = searchTerm;
+    }
 
     console.log("filtering advocates...");
     const filteredAdvocates = advocates.filter((advocate) => {
@@ -42,45 +56,47 @@ export default function Home() {
   };
 
   return (
-    <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
+    <main className="m-6">
+      <h1 className="text-2xl font-bold">Solace Advocates</h1>
       <br />
       <br />
       <div>
-        <p>Search</p>
+        <p className="font-medium">Search</p>
         <p>
-          Searching for: <span id="search-term"></span>
+          Searching for: <span id="search-term" className="font-semibold"></span>
         </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+        <input className="border border-gray-400 p-2 rounded" onChange={onChange} />
+        <button className="ml-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={onClick}>Reset Search</button>
       </div>
       <br />
       <br />
-      <table>
+      <table className="w-full border-collapse">
         <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>City</th>
-          <th>Degree</th>
-          <th>Specialties</th>
-          <th>Years of Experience</th>
-          <th>Phone Number</th>
+          <tr className="bg-gray-100">
+            <th className="border p-2 text-left">First Name</th>
+            <th className="border p-2 text-left">Last Name</th>
+            <th className="border p-2 text-left">City</th>
+            <th className="border p-2 text-left">Degree</th>
+            <th className="border p-2 text-left">Specialties</th>
+            <th className="border p-2 text-left">Years of Experience</th>
+            <th className="border p-2 text-left">Phone Number</th>
+          </tr>
         </thead>
         <tbody>
-          {filteredAdvocates.map((advocate) => {
+          {filteredAdvocates.map((advocate, index) => {
             return (
-              <tr>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s) => (
-                    <div>{s}</div>
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="border p-2">{advocate.firstName}</td>
+                <td className="border p-2">{advocate.lastName}</td>
+                <td className="border p-2">{advocate.city}</td>
+                <td className="border p-2">{advocate.degree}</td>
+                <td className="border p-2">
+                  {advocate.specialties.map((s, i) => (
+                    <div key={i} className="mb-1">{s}</div>
                   ))}
                 </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
+                <td className="border p-2">{advocate.yearsOfExperience}</td>
+                <td className="border p-2">{advocate.phoneNumber}</td>
               </tr>
             );
           })}
