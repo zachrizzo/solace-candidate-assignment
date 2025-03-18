@@ -65,29 +65,7 @@ export const AdvocateSearch: FC<AdvocateSearchProps> = ({
               </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="specialty" className="text-base font-medium">
-                  Specialty
-                </Label>
-                <Select
-                  value={selectedSpecialty || ""}
-                  onValueChange={(value) => onSpecialtyChange(value === "all" ? null : value)}
-                >
-                  <SelectTrigger id="specialty">
-                    <SelectValue placeholder="All specialties" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All specialties</SelectItem>
-                    {specialties.map((specialty) => (
-                      <SelectItem key={specialty} value={specialty}>
-                        {specialty}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
+            <div className="grid gap-6 md:grid-cols-1">
               <div className="space-y-2">
                 <Label htmlFor="city" className="text-base font-medium">
                   City

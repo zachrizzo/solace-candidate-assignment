@@ -5,6 +5,7 @@ import { Phone, MapPin, Award, GraduationCap, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { type FC } from "react"
 import { type AdvocateCardProps, type Advocate } from "@/features/advocates/types/advocate.types"
+import { formatPhoneNumber } from "@/lib/utils"
 
 export const AdvocateCard: FC<AdvocateCardProps> = ({ advocate }) => {
   const initials = `${advocate.firstName.charAt(0)}${advocate.lastName.charAt(0)}`
@@ -42,19 +43,19 @@ export const AdvocateCard: FC<AdvocateCardProps> = ({ advocate }) => {
 
         <div className="flex items-center gap-2 text-sm">
           <Phone className="h-4 w-4 text-purple-600 flex-shrink-0" />
-          <span>{advocate.phoneNumber}</span>
+          <span>{formatPhoneNumber(advocate.phoneNumber)}</span>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           <p className="text-sm font-semibold text-purple-700 dark:text-purple-400">Specialties</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 h-20 bg-gray-100 dark:bg-gray-800/50 p-2 rounded-md overflow-y-auto pr-1">
             {advocate.specialties.map((specialty, index) => (
               <Badge
                 key={index}
                 variant="secondary"
-                className="bg-purple-50 text-purple-700 hover:bg-purple-100 dark:bg-purple-900/40 dark:text-purple-300 dark:hover:bg-purple-900/60"
+                className="bg-purple-50 text-purple-700 hover:bg-purple-100 dark:bg-purple-900/40 dark:text-purple-300 dark:hover:bg-purple-900/60 min-w-[80px] h-6 px-2 flex items-center justify-center"
               >
-                {specialty}
+                <span className="truncate">{specialty}</span>
               </Badge>
             ))}
           </div>

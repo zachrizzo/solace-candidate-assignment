@@ -13,6 +13,7 @@ import { Card } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type FC } from "react"
 import { type AdvocateListProps, type SortField, type SortDirection, type Advocate } from "@/features/advocates/types/advocate.types"
+import { formatPhoneNumber } from "@/lib/utils"
 
 export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, error }) => {
   const [sortField, setSortField] = useState<SortField>("name")
@@ -198,7 +199,7 @@ export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, erro
                         <div className="font-medium">
                           {advocate.firstName} {advocate.lastName}
                         </div>
-                        <div className="text-sm text-muted-foreground">{advocate.phoneNumber}</div>
+                        <div className="text-sm text-muted-foreground">{formatPhoneNumber(advocate.phoneNumber)}</div>
                       </div>
                     </div>
                   </TableCell>
