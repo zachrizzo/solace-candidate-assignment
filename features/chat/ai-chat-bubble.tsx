@@ -15,9 +15,10 @@ export function AiChatBubble(): React.ReactElement {
     {
       id: "1",
       content:
-        "Hi there! I'm your Solace Assistant. I can help you find the right advocate for your needs. What type of legal help are you looking for?",
+        "Hi there! I'm your Solace Assistant. I can help you find the right advocate for your health needs. What kind of health-related support are you looking for?",
       sender: "bot",
       timestamp: new Date(),
+      isHtml: false,
     },
   ])
   const [inputValue, setInputValue] = useState<string>("")
@@ -30,7 +31,7 @@ export function AiChatBubble(): React.ReactElement {
     }
   }, [messages])
 
-  const handleSendMessage = (): void => {
+  const handleSendMessage = async (): Promise<void> => {
     if (!inputValue.trim()) return
 
     // Add user message
@@ -39,51 +40,54 @@ export function AiChatBubble(): React.ReactElement {
       content: inputValue,
       sender: "user",
       timestamp: new Date(),
+      isHtml: false,
     }
 
     setMessages((prev) => [...prev, userMessage])
     setInputValue("")
     setIsTyping(true)
 
-    // Simulate AI response
-    setTimeout(() => {
-      const botResponse = generateBotResponse(inputValue)
-      setIsTyping(false)
-      setMessages((prev) => [...prev, botResponse])
-    }, 1500)
-  }
+    try {
+      // Call the OpenAI API through our endpoint
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputValue }),
+      });
 
-  const generateBotResponse = (userInput: string): Message => {
-    const lowerCaseInput = userInput.toLowerCase()
-    let response = ""
+      const data = await response.json();
 
-    if (lowerCaseInput.includes("family") || lowerCaseInput.includes("divorce")) {
-      response =
-        "Based on your needs, I recommend speaking with Sarah Johnson or Elena Rodriguez who specialize in Family Law. Would you like me to connect you with one of them?"
-    } else if (lowerCaseInput.includes("immigration") || lowerCaseInput.includes("visa")) {
-      response =
-        "For immigration matters, Michael Chen and Zoe Nguyen are excellent advocates with expertise in this area. Would you like more information about them?"
-    } else if (lowerCaseInput.includes("criminal") || lowerCaseInput.includes("defense")) {
-      response =
-        "Aisha Patel and Thomas Jackson specialize in Criminal Defense. They have extensive experience in this field. Would you like to know more about their background?"
-    } else if (lowerCaseInput.includes("real estate") || lowerCaseInput.includes("property")) {
-      response =
-        "James Wilson is our top advocate for Real Estate Law with 20 years of experience. Would you like me to share his contact information?"
-    } else if (lowerCaseInput.includes("hello") || lowerCaseInput.includes("hi")) {
-      response =
-        "Hello! I'm here to help you find the right advocate. What type of legal assistance are you looking for today?"
-    } else if (lowerCaseInput.includes("thank")) {
-      response = "You're welcome! Is there anything else I can help you with regarding finding an advocate?"
-    } else {
-      response =
-        "I'd be happy to help you find the right advocate. Could you tell me more about the specific legal issue you're facing? For example, is it related to family law, immigration, criminal defense, or real estate?"
-    }
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to get response');
+      }
 
-    return {
-      id: Date.now().toString(),
-      content: response,
-      sender: "bot",
-      timestamp: new Date(),
+      // Add bot response immediately
+      const botMessage: Message = {
+        id: Date.now().toString(),
+        content: data.response,
+        sender: "bot",
+        timestamp: new Date(),
+        isHtml: data.isHtml || false,
+      };
+
+      setIsTyping(false);
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+
+      // Fallback response in case of error
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        content: "I'm having trouble connecting to my AI brain right now. Please try again in a moment or contact support if the problem persists.",
+        sender: "bot",
+        timestamp: new Date(),
+        isHtml: false,
+      };
+
+      setIsTyping(false);
+      setMessages((prev) => [...prev, errorMessage]);
     }
   }
 
@@ -92,6 +96,14 @@ export function AiChatBubble(): React.ReactElement {
       handleSendMessage()
     }
   }
+
+  // Function to render message content (handles HTML)
+  const renderMessageContent = (message: Message) => {
+    if (message.isHtml) {
+      return <div dangerouslySetInnerHTML={{ __html: message.content }} />;
+    }
+    return <p className="text-sm whitespace-pre-line">{message.content}</p>;
+  };
 
   return (
     <>
@@ -104,8 +116,8 @@ export function AiChatBubble(): React.ReactElement {
             transition={{ duration: 0.2 }}
             className="fixed bottom-5 right-5 z-50"
           >
-            <Card className="w-[450px] max-w-[calc(100vw-40px)] max-h-[600px] overflow-y-auto shadow-lg rounded-xl border-purple-200 dark:border-purple-900">
-              <CardHeader className="p-4 border-b bg-purple-50/50 dark:bg-purple-900/30 flex flex-row items-center justify-between">
+            <Card className="w-[600px] max-w-[calc(100vw-40px)] h-[700px] shadow-lg rounded-xl border-purple-200 dark:border-purple-900 flex flex-col">
+              <CardHeader className="p-4 border-b bg-purple-50/50 dark:bg-purple-900/30 flex flex-row items-center justify-between shrink-0">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10 border-2 border-purple-200 dark:border-purple-800">
                     <AvatarFallback className="bg-purple-700 text-white">
@@ -114,18 +126,18 @@ export function AiChatBubble(): React.ReactElement {
                   </Avatar>
                   <div>
                     <h3 className="font-semibold text-base flex items-center gap-2 text-purple-800 dark:text-purple-300">
-                      Solace Assistant
+                      Solace Health Assistant
                       <Sparkles className="h-4 w-4 text-purple-500" />
                     </h3>
-                    <p className="text-xs text-muted-foreground">AI-powered advocate finder</p>
+                    <p className="text-xs text-muted-foreground">Powered by OpenAI</p>
                   </div>
                 </div>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
                   <X className="h-4 w-4" />
                 </Button>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="max-h-[400px] overflow-y-auto scroll-smooth p-4 space-y-4">
+              <CardContent className="p-0 overflow-y-auto flex-grow">
+                <div className="h-full overflow-y-auto scroll-smooth p-4 space-y-4">
                   {messages.map((message) => (
                     <div
                       key={message.id}
@@ -145,7 +157,7 @@ export function AiChatBubble(): React.ReactElement {
                             : "bg-muted rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-none p-3 mr-auto max-w-[80%] border-r border-t border-border"
                         }
                       >
-                        <p className="text-sm">{message.content}</p>
+                        {renderMessageContent(message)}
                         <p className="text-xs text-muted-foreground mt-1">
                           {message.timestamp.toLocaleTimeString([], {
                             hour: "2-digit",
@@ -188,10 +200,10 @@ export function AiChatBubble(): React.ReactElement {
                   <div ref={messagesEndRef} />
                 </div>
               </CardContent>
-              <CardFooter className="p-3 border-t bg-muted/50">
+              <CardFooter className="p-3 border-t bg-muted/50 shrink-0">
                 <div className="flex w-full items-center gap-2">
                   <Input
-                    placeholder="Type your message..."
+                    placeholder="Type your health needs or questions..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}

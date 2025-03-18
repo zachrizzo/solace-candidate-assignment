@@ -1,5 +1,5 @@
-import db from "..";
-import { advocates } from "../schema";
+const db = require("..");
+const { advocates } = require("../schema");
 
 const specialties = [
   "Bipolar",
@@ -175,4 +175,4 @@ const advocateData = [
   },
 ];
 
-export { advocateData };
+module.exports = { advocateData };
