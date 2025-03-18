@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { type FC } from "react"
-import { type AdvocateSearchProps } from "@/features/types"
+import { type AdvocateSearchProps } from "@/features/advocates/types/advocate.types"
 
 export const AdvocateSearch: FC<AdvocateSearchProps> = ({
   searchTerm,
