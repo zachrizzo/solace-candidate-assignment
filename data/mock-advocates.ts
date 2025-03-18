@@ -1,4 +1,4 @@
-import type { Advocate } from "@/features/types";
+import type { Advocate } from "@/features/advocates/types/advocate.types";
 
 export const mockAdvocates: Advocate[] = [
   {
@@ -7,7 +7,7 @@ export const mockAdvocates: Advocate[] = [
     city: "New York",
     degree: "J.D., Harvard Law School",
     specialties: ["Family Law", "Divorce Mediation", "Child Custody"],
-    yearsOfExperience: "15",
+    yearsOfExperience: 15,
     phoneNumber: "(212) 555-1234",
   },
   {
@@ -16,7 +16,7 @@ export const mockAdvocates: Advocate[] = [
     city: "San Francisco",
     degree: "J.D., Stanford Law School",
     specialties: ["Immigration Law", "Asylum Cases", "Work Visas"],
-    yearsOfExperience: "8",
+    yearsOfExperience: 8,
     phoneNumber: "(415) 555-2345",
   },
   {
@@ -25,7 +25,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Chicago",
     degree: "J.D., University of Chicago",
     specialties: ["Criminal Defense", "Civil Rights", "Appeals"],
-    yearsOfExperience: "12",
+    yearsOfExperience: 12,
     phoneNumber: "(312) 555-3456",
   },
   {
@@ -34,7 +34,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Boston",
     degree: "J.D., Boston University",
     specialties: ["Real Estate Law", "Contract Disputes", "Property Rights"],
-    yearsOfExperience: "20",
+    yearsOfExperience: 20,
     phoneNumber: "(617) 555-4567",
   },
   {
@@ -43,7 +43,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Miami",
     degree: "J.D., University of Miami",
     specialties: ["Immigration Law", "Family Law", "International Law"],
-    yearsOfExperience: "10",
+    yearsOfExperience: 10,
     phoneNumber: "(305) 555-5678",
   },
   {
@@ -56,7 +56,7 @@ export const mockAdvocates: Advocate[] = [
       "Intellectual Property",
       "Contract Negotiation",
     ],
-    yearsOfExperience: "14",
+    yearsOfExperience: 14,
     phoneNumber: "(323) 555-6789",
   },
   {
@@ -65,7 +65,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Atlanta",
     degree: "J.D., Emory University",
     specialties: ["Civil Rights", "Employment Law", "Discrimination Cases"],
-    yearsOfExperience: "9",
+    yearsOfExperience: 9,
     phoneNumber: "(404) 555-7890",
   },
   {
@@ -78,7 +78,7 @@ export const mockAdvocates: Advocate[] = [
       "Medical Malpractice",
       "Product Liability",
     ],
-    yearsOfExperience: "18",
+    yearsOfExperience: 18,
     phoneNumber: "(713) 555-8901",
   },
   {
@@ -91,7 +91,7 @@ export const mockAdvocates: Advocate[] = [
       "Corporate Compliance",
       "Regulatory Affairs",
     ],
-    yearsOfExperience: "11",
+    yearsOfExperience: 11,
     phoneNumber: "(206) 555-9012",
   },
   {
@@ -100,7 +100,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Philadelphia",
     degree: "J.D., Temple University",
     specialties: ["Labor Law", "Workers' Compensation", "Union Representation"],
-    yearsOfExperience: "16",
+    yearsOfExperience: 16,
     phoneNumber: "(215) 555-0123",
   },
   {
@@ -109,7 +109,7 @@ export const mockAdvocates: Advocate[] = [
     city: "San Diego",
     degree: "J.D., University of San Diego",
     specialties: ["Immigration Law", "Human Rights", "Asylum Cases"],
-    yearsOfExperience: "7",
+    yearsOfExperience: 7,
     phoneNumber: "(619) 555-1234",
   },
   {
@@ -118,7 +118,7 @@ export const mockAdvocates: Advocate[] = [
     city: "Denver",
     degree: "J.D., University of Colorado",
     specialties: ["Criminal Defense", "DUI Defense", "Drug Offenses"],
-    yearsOfExperience: "13",
+    yearsOfExperience: 13,
     phoneNumber: "(303) 555-2345",
   },
 ];

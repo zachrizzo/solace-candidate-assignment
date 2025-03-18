@@ -6,7 +6,7 @@ import { AlertCircle } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
 import { type FC } from "react"
-import { type AdvocateGridProps, type Advocate } from "@/features/types"
+import { type AdvocateGridProps, type Advocate } from "@/features/advocates/types/advocate.types"
 
 export const AdvocateGrid: FC<AdvocateGridProps> = ({ advocates, isLoading, error }) => {
   if (error) {

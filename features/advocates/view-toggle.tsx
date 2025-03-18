@@ -3,7 +3,7 @@
 import { LayoutGrid, List } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { type FC } from "react"
-import { type ViewToggleProps, type ViewMode } from "@/features/types"
+import { type ViewToggleProps, type ViewMode } from "@/features/advocates/types/advocate.types"
 
 export const ViewToggle: FC<ViewToggleProps> = ({ viewMode, onViewModeChange }) => {
   return (

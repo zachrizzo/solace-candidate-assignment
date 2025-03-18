@@ -18,7 +18,7 @@ npm run dev
 
 ## Database set up
 
-The app is configured to return a default list of advocates. This will allow you to get the app up and running without needing to configure a database. If you’d like to configure a database, you’re encouraged to do so. You can uncomment the url in `.env` and the line in `src/app/api/advocates/route.ts` to test retrieving advocates from the database.
+The app is configured to return a default list of advocates. This will allow you to get the app up and running without needing to configure a database. If you'd like to configure a database, you're encouraged to do so. You can uncomment the url in `.env` and the line in `src/app/api/advocates/route.ts` to test retrieving advocates from the database.
 
 1. Feel free to use whatever configuration of postgres you like. The project is set up to use docker-compose.yml to set up postgres. The url is in .env.
 
@@ -39,4 +39,15 @@ npx drizzle-kit push
 ```bash
 curl -X POST http://localhost:3000/api/seed
 ```
+
+## Database Configuration Changes
+
+The following modifications were made to enable database functionality:
+
+- Changed PostgreSQL port to 5433 to avoid conflicts with local installations
+- Added dotenv support for environment variable loading
+- Updated API routes to use database queries instead of static data
+
+For details, see [DATABASE_SETUP.md](./DATABASE_SETUP.md) and [DISCUSSION.md](./DISCUSSION.md).
+
 # solace-candidate-assignment

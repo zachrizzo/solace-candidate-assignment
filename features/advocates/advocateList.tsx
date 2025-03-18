@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type FC } from "react"
-import { type AdvocateListProps, type SortField, type SortDirection, type Advocate } from "@/features/types"
+import { type AdvocateListProps, type SortField, type SortDirection, type Advocate } from "@/features/advocates/types/advocate.types"
 
 export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, error }) => {
   const [sortField, setSortField] = useState<SortField>("name")
@@ -31,9 +31,7 @@ export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, erro
         const nameB = `${b.firstName} ${b.lastName}`
         return sortDirection === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA)
       } else if (sortField === "experience") {
-        const expA = Number.parseInt(a.yearsOfExperience)
-        const expB = Number.parseInt(b.yearsOfExperience)
-        return sortDirection === "asc" ? expA - expB : expB - expA
+        return sortDirection === "asc" ? a.yearsOfExperience - b.yearsOfExperience : b.yearsOfExperience - a.yearsOfExperience
       } else if (sortField === "city") {
         return sortDirection === "asc" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city)
       }
