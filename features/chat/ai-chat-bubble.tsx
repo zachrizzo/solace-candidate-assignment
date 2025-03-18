@@ -229,11 +229,12 @@ export function AiChatBubble(): React.ReactElement {
             className="fixed bottom-5 right-5 z-50 transition-all duration-300"
           >
             <Button
-              size="icon"
-              className="h-14 w-14 rounded-full shadow-lg bg-purple-700 hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700"
+              size="lg"
+              className="shadow-lg bg-purple-700 hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700 rounded-full px-4 py-3 flex items-center gap-2"
               onClick={() => setIsOpen(true)}
             >
-              <MessageCircle className="h-6 w-6" />
+              <span className="font-medium">AI Chat</span>
+              <MessageCircle className="h-5 w-5" />
             </Button>
           </motion.div>
         )}

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { type Advocate } from "@/features/advocates/types/advocate.types";
 import OpenAI from "openai";
 import { vectorSearch, initVectorDB } from "@/lib/vector-search";
+import { formatPhoneNumber } from "@/lib/utils";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -194,9 +195,12 @@ function generateFormattedResponse(
                   .join("")}
               </div>
               <div class="advocate-contact">
-                <a href="tel:${
-                  advocate.phoneNumber
-                }" class="contact-button">Contact</a>
+                <a href="tel:${advocate.phoneNumber.replace(
+                  /\D/g,
+                  ""
+                )}" class="contact-button">Contact (${formatPhoneNumber(
+              advocate.phoneNumber
+            )})</a>
               </div>
             </div>
           </div>
