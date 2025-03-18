@@ -7,13 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { motion, AnimatePresence } from "framer-motion"
-
-interface Message {
-  id: string
-  content: string
-  sender: "user" | "bot"
-  timestamp: Date
-}
+import { type Message } from "@/features/types"
 
 export function AiChatBubble(): React.ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false)

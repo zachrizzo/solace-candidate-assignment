@@ -1,18 +1,12 @@
 "use client"
 
 import { AdvocateCard } from "@/features/advocates/advocateCard"
-import type { Advocate } from "@/types/advocate"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
 import { type FC } from "react"
-
-interface AdvocateGridProps {
-  advocates: Advocate[]
-  isLoading: boolean
-  error: Error | null
-}
+import { type AdvocateGridProps, type Advocate } from "@/features/types"
 
 export const AdvocateGrid: FC<AdvocateGridProps> = ({ advocates, isLoading, error }) => {
   if (error) {

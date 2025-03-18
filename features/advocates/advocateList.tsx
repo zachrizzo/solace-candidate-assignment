@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import type { Advocate } from "@/types/advocate"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle, Mail, ChevronRight, ArrowUpDown, Filter } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -13,15 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type FC } from "react"
-
-interface AdvocateListProps {
-  advocates: Advocate[]
-  isLoading: boolean
-  error: Error | null
-}
-
-type SortField = "name" | "experience" | "city"
-type SortDirection = "asc" | "desc"
+import { type AdvocateListProps, type SortField, type SortDirection, type Advocate } from "@/features/types"
 
 export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, error }) => {
   const [sortField, setSortField] = useState<SortField>("name")

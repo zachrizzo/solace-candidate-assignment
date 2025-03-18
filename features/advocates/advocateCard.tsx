@@ -1,14 +1,10 @@
-import type { Advocate } from "@/types/advocate"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Phone, MapPin, Award, GraduationCap, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { type FC } from "react"
-
-interface AdvocateCardProps {
-  advocate: Advocate
-}
+import { type AdvocateCardProps, type Advocate } from "@/features/types"
 
 export const AdvocateCard: FC<AdvocateCardProps> = ({ advocate }) => {
   const initials = `${advocate.firstName.charAt(0)}${advocate.lastName.charAt(0)}`

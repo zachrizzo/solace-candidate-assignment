@@ -1,4 +1,4 @@
-import type { Advocate } from "@/types/advocate"
+import type { Advocate } from "@/features/types";
 
 export const mockAdvocates: Advocate[] = [
   {
@@ -51,7 +51,11 @@ export const mockAdvocates: Advocate[] = [
     lastName: "Kim",
     city: "Los Angeles",
     degree: "J.D., UCLA School of Law",
-    specialties: ["Entertainment Law", "Intellectual Property", "Contract Negotiation"],
+    specialties: [
+      "Entertainment Law",
+      "Intellectual Property",
+      "Contract Negotiation",
+    ],
     yearsOfExperience: "14",
     phoneNumber: "(323) 555-6789",
   },
@@ -69,7 +73,11 @@ export const mockAdvocates: Advocate[] = [
     lastName: "Garcia",
     city: "Houston",
     degree: "J.D., University of Texas",
-    specialties: ["Personal Injury", "Medical Malpractice", "Product Liability"],
+    specialties: [
+      "Personal Injury",
+      "Medical Malpractice",
+      "Product Liability",
+    ],
     yearsOfExperience: "18",
     phoneNumber: "(713) 555-8901",
   },
@@ -78,7 +86,11 @@ export const mockAdvocates: Advocate[] = [
     lastName: "Lee",
     city: "Seattle",
     degree: "J.D., University of Washington",
-    specialties: ["Environmental Law", "Corporate Compliance", "Regulatory Affairs"],
+    specialties: [
+      "Environmental Law",
+      "Corporate Compliance",
+      "Regulatory Affairs",
+    ],
     yearsOfExperience: "11",
     phoneNumber: "(206) 555-9012",
   },
@@ -109,5 +121,4 @@ export const mockAdvocates: Advocate[] = [
     yearsOfExperience: "13",
     phoneNumber: "(303) 555-2345",
   },
-]
-
+];

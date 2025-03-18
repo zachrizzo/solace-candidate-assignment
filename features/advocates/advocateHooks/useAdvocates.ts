@@ -1,14 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Advocate } from "@/types/advocate";
 import { mockAdvocates } from "@/data/mock-advocates";
-
-interface UseAdvocatesResult {
-  advocates: Advocate[];
-  isLoading: boolean;
-  error: Error | null;
-}
+import { type UseAdvocatesResult, type Advocate } from "@/features/types";
 
 export function useAdvocates(): UseAdvocatesResult {
   const [advocates, setAdvocates] = useState<Advocate[]>([]);

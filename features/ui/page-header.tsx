@@ -3,11 +3,7 @@
 import { Separator } from "@/components/ui/separator"
 import { motion } from "framer-motion"
 import { type ReactElement } from "react"
-
-interface PageHeaderProps {
-  title: string
-  description: string
-}
+import { type PageHeaderProps } from "@/features/types"
 
 export function PageHeader({ title, description }: PageHeaderProps): ReactElement {
   return (

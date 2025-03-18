@@ -9,17 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { type FC } from "react"
-
-interface AdvocateSearchProps {
-  searchTerm: string
-  onSearchChange: (value: string) => void
-  specialties: string[]
-  selectedSpecialty: string | null
-  onSpecialtyChange: (value: string | null) => void
-  cities: string[]
-  selectedCity: string | null
-  onCityChange: (value: string | null) => void
-}
+import { type AdvocateSearchProps } from "@/features/types"
 
 export const AdvocateSearch: FC<AdvocateSearchProps> = ({
   searchTerm,
