@@ -57,16 +57,6 @@ This will:
 
 ## Features
 
-### Music Features
-
-The application includes an integrated music experience to enhance user wellness:
-
-- **Personalized Playlists**: Customized music recommendations based on user preferences and health needs
-- **Meditation Tracks**: Curated audio content designed for stress reduction and mindfulness
-- **Ambient Soundscapes**: Background audio environments to promote focus and relaxation
-- **Sleep Assistance**: Specialized audio programs designed to improve sleep quality
-- **Music Therapy Integration**: Connects music selections with health advocate recommendations
-
 ### AI-Powered Patient Advocacy Chat
 
 The application includes an intelligent chat interface that helps users find relevant healthcare advocates based on their specific needs:
