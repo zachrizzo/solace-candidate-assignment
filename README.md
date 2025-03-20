@@ -1,112 +1,148 @@
-## Solace Candidate Assignment
+# Solace Advocates Directory
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A Next.js application that helps users find healthcare advocates based on their needs.
+
+## Project Structure
+
+```
+solace-candidate-assignment/
+├── app/                # Next.js app directory (routes, layouts)
+├── components/         # Legacy components directory (being migrated)
+├── config/             # Application configuration
+├── db/                 # Database configuration and schema
+├── features/           # Feature-based modules
+│   ├── advocates/      # Advocates feature
+│   └── chat/           # Chat feature
+├── lib/                # Legacy library code (being migrated)
+├── public/             # Static assets
+└── shared/             # Shared utilities and components
+    ├── components/     # Shared UI components
+    ├── types/          # Shared type definitions
+    └── utils/          # Shared utility functions
+```
 
 ## Getting Started
 
-Install dependencies
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+- Docker (optional, for local database)
+
+### Installation
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/your-org/solace-candidate-assignment.git
+   cd solace-candidate-assignment
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Edit `.env.local` with your configuration values.
+
+4. Start the development server
+   ```bash
+   npm run dev
+   ```
+
+### Using Docker
+
+To run the application with a Docker-based database:
 
 ```bash
-npm i
+./start-with-docker.sh
 ```
 
-## Starting the Application
+## Development
 
-We have three primary ways to start the application, all designed to use the real PostgreSQL database (never mock data):
+### Code Organization
 
-### Option 1: UI Only
+- **Feature-based Structure**: Code is organized by features (advocates, chat, etc.)
+- **Shared Resources**: Common utilities, types, and components are in the `shared` directory
+- **Type Safety**: TypeScript is used throughout the application
 
-If you only want to start the UI without the database (database must already be running):
+### Key Features
+
+1. **Advocates Directory**
+
+   - Browse healthcare advocates
+   - Search and filter by specialties
+   - View advocate details
+
+2. **Chat Interface**
+   - AI-powered chat to help users find advocates
+   - Natural language understanding of healthcare needs
+   - Suggest relevant advocates based on user queries
+
+## Testing
 
 ```bash
-npm run dev
+# Run unit tests
+npm test
+
+# Run end-to-end tests
+npm run test:e2e
 ```
 
-### Option 2: Database + UI (Without Seeding)
+## Code Style
 
-If you want to start Docker, set up the database (without seeding), and start the UI:
+This project uses ESLint and Prettier for code formatting.
 
 ```bash
-npm run start-db-no-seed
+# Check code style
+npm run lint
+
+# Fix code style issues
+npm run lint:fix
 ```
 
-This will:
-
-- Automatically start Docker Desktop (on Mac) if it's not running
-- Start the PostgreSQL container
-- Set up the database (but not seed it)
-- Start the Next.js development server
-
-### Option 3: Complete Setup (With Seeding)
-
-For a complete setup including database seeding:
+## Production Build
 
 ```bash
-npm run start-with-docker
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-This will:
+## Directory Structure Guidelines
 
-- Automatically start Docker Desktop (on Mac) if it's not running
-- Start the PostgreSQL container
-- Set up the database schema
-- Seed the database with initial data
-- Start the Next.js development server
+### Features
 
-**Important:** All of these options require Docker to run the database. We never use mock data. If Docker isn't available, please install and start Docker Desktop first.
+Features should:
 
-## Features
+- Be self-contained
+- Include their own components, services, and types
+- Follow consistent patterns within each feature
 
-### AI-Powered Patient Advocacy Chat
+### Shared Code
 
-The application includes an intelligent chat interface that helps users find relevant healthcare advocates based on their specific needs:
+Code in the `shared` directory should:
 
-- **Vector Search**: Uses OpenAI's embedding model to semantically match patient needs with advocate specialties
-- **Intelligent Query Routing**: Determines if user queries are health-related before performing advocate searches
-- **Dynamic Responses**: Provides conversational responses for general queries and advocate recommendations for health-related questions
-- **Fallback Mechanisms**: Gracefully handles database connectivity issues by falling back to mock data
+- Be truly reusable across multiple features
+- Be well-documented with JSDoc comments
+- Follow consistent naming patterns
 
-### OpenAI Integration
+## Contributing
 
-The application uses OpenAI for several key features:
+1. Create a feature branch
+2. Make your changes
+3. Ensure tests pass
+4. Submit a pull request with a clear description of changes
 
-- Text embeddings for semantic search (text-embedding-3-small model)
-- Query classification to determine if health-related (gpt-3.5-turbo)
-- Conversational responses when vector search isn't needed
+## License
 
-## Database set up
-
-The app is configured to return a default list of advocates. This will allow you to get the app up and running without needing to configure a database. If you'd like to configure a database, you're encouraged to do so. You can uncomment the url in `.env` and the line in `src/app/api/advocates/route.ts` to test retrieving advocates from the database.
-
-1. Feel free to use whatever configuration of postgres you like. The project is set up to use docker-compose.yml to set up postgres. The url is in .env.
-
-```bash
-docker compose up -d
-```
-
-2. Create a `solaceassignment` database.
-
-3. Push migration to the database
-
-```bash
-npx drizzle-kit push
-```
-
-4. Seed the database
-
-```bash
-npm run seed
-```
-
-## Database Configuration Changes
-
-The following modifications were made to enable database functionality:
-
-- Changed PostgreSQL port to 5433 to avoid conflicts with local installations
-- Added dotenv support for environment variable loading
-- Updated API routes to use database queries instead of static data
-- Added vector search capability with OpenAI embeddings
-
-For details, see [DATABASE_SETUP.md](./DATABASE_SETUP.md) and [DISCUSSION.md](./DISCUSSION.md).
-
-# solace-candidate-assignment
+This project is licensed under the MIT License - see the LICENSE file for details.

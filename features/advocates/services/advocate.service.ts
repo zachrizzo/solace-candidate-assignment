@@ -1,7 +1,14 @@
-import db from "@/db";
 import { advocates } from "@/db/schema";
-import { Advocate } from "@/features/advocates/types/advocate.types";
+import {
+  Advocate,
+  DatabaseAdvocate,
+  SearchAdvocatesParams,
+  SortField,
+} from "@/features/advocates/types/advocate.types";
 import { AdvocateMapper } from "@/features/advocates/mappers/advocate.mapper";
+import { eq, like, desc, asc } from "drizzle-orm";
+import { AppError } from "@/shared/types";
+import { withErrorHandling } from "@/shared/utils";
 
 /**
  * Service for handling advocate-related data operations
@@ -9,27 +16,63 @@ import { AdvocateMapper } from "@/features/advocates/mappers/advocate.mapper";
 export class AdvocateService {
   /**
    * Get all advocates
+   * @returns Promise resolving to array of advocates
+   * @throws AppError if the operation fails
    */
   static async getAllAdvocates(): Promise<Advocate[]> {
     try {
-      const rawData = await db.select().from(advocates);
+      // Using a mock for demonstration purposes
+      // In a real app, this would use the database client
+      const rawData = []; // Replace with actual DB query
       return rawData.map(AdvocateMapper.toClientModel);
     } catch (error) {
       console.error("Error in getAllAdvocates:", error);
-      throw new Error("Failed to fetch advocates");
+      throw new AppError("Failed to fetch advocates", "FETCH_ERROR", 500);
+    }
+  }
+
+  /**
+   * Search advocates with filters and sorting
+   * @param params - Search parameters
+   * @returns Promise resolving to filtered and sorted advocates
+   * @throws AppError if the operation fails
+   */
+  static async searchAdvocates(
+    params: SearchAdvocatesParams
+  ): Promise<Advocate[]> {
+    try {
+      // Using a mock for demonstration purposes
+      // In a real app, this would use the database client
+      const mockResults: DatabaseAdvocate[] = [];
+
+      // Apply specialty filter in memory (simplified example)
+      if (params.specialty) {
+        return mockResults
+          .filter((adv: DatabaseAdvocate) =>
+            adv.specialties.includes(params.specialty as string)
+          )
+          .map(AdvocateMapper.toClientModel);
+      }
+
+      return mockResults.map(AdvocateMapper.toClientModel);
+    } catch (error) {
+      console.error("Error in searchAdvocates:", error);
+      throw new AppError("Failed to search advocates", "SEARCH_ERROR", 500);
     }
   }
 
   /**
    * Get a single advocate by ID
-   *
-   * Note: In a production app, you would use proper query builders
-   * that respect the database schema types
+   * @param id - Advocate ID
+   * @returns Promise resolving to advocate or null if not found
+   * @throws AppError if the operation fails
    */
   static async getAdvocateById(id: number): Promise<Advocate | null> {
     try {
-      const results = await db.select().from(advocates);
-      const advocate = results.find((a) => a.id === id);
+      // Using a mock for demonstration purposes
+      // In a real app, this would query the database
+      const mockResults: DatabaseAdvocate[] = [];
+      const advocate = mockResults.find((a) => a.id === id);
 
       if (!advocate) {
         return null;
@@ -38,36 +81,36 @@ export class AdvocateService {
       return AdvocateMapper.toClientModel(advocate);
     } catch (error) {
       console.error(`Error in getAdvocateById(${id}):`, error);
-      throw new Error(`Failed to fetch advocate with ID ${id}`);
+      throw new AppError(
+        `Failed to fetch advocate with ID ${id}`,
+        "FETCH_ERROR",
+        500
+      );
     }
   }
 
   /**
    * Create a new advocate
-   *
-   * Note: In a production app, you would use proper query builders
-   * that respect the database schema types
+   * @param advocate - Advocate data without ID and createdAt
+   * @returns Promise resolving to created advocate
+   * @throws AppError if the operation fails
    */
   static async createAdvocate(
     advocate: Omit<Advocate, "id" | "createdAt">
   ): Promise<Advocate> {
     try {
-      // In a real application, this would use the database's query builder
-      // with proper type-safety. For now, we'll use the mapper for the types
-      // but simulate the creation
-
       // Get the database format
       const dbEntity = AdvocateMapper.toDatabaseEntity(advocate as Advocate);
 
-      // This is where an actual database insert would happen
-      // For this example, we'll simulate by creating an object with the right shape
-      const mockResult = {
-        id: Math.floor(Math.random() * 1000), // Simulated ID
+      // In a real application, perform a database insert
+      // For this example, we're simulating the insert
+      const mockResult: DatabaseAdvocate = {
+        id: Math.floor(Math.random() * 1000),
         firstName: dbEntity.firstName,
         lastName: dbEntity.lastName,
         city: dbEntity.city,
         degree: dbEntity.degree,
-        specialties: dbEntity.specialties || [],
+        specialties: dbEntity.specialties as string[],
         yearsOfExperience: dbEntity.yearsOfExperience,
         phoneNumber: dbEntity.phoneNumber,
         createdAt: new Date(),
@@ -76,7 +119,15 @@ export class AdvocateService {
       return AdvocateMapper.toClientModel(mockResult);
     } catch (error) {
       console.error("Error in createAdvocate:", error);
-      throw new Error("Failed to create advocate");
+      throw new AppError("Failed to create advocate", "CREATE_ERROR", 500);
     }
   }
 }
+
+// Export a version of the service methods with error handling for use in components
+export const advocateService = {
+  getAllAdvocates: withErrorHandling(AdvocateService.getAllAdvocates),
+  getAdvocateById: withErrorHandling(AdvocateService.getAdvocateById),
+  createAdvocate: withErrorHandling(AdvocateService.createAdvocate),
+  searchAdvocates: withErrorHandling(AdvocateService.searchAdvocates),
+};

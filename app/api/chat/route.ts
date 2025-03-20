@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { type Advocate } from "@/features/advocates/types/advocate.types";
 import OpenAI from "openai";
 import { vectorSearch, initVectorDB } from "@/lib/vector-search";
-import { formatPhoneNumber } from "@/lib/utils";
+import { formatPhoneNumber } from "@/shared/utils";
+import { getEnv } from "@/config/environment";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: getEnv("OPENAI_API_KEY"),
 });
 
 // Initialize vector database on first load

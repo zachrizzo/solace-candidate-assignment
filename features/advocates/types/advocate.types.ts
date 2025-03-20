@@ -1,3 +1,19 @@
+import { advocates } from "@/db/schema";
+import { BaseComponentProps, SortDirection, ViewMode } from "@/shared/types";
+
+/**
+ * Database type for an advocate as stored in the database
+ */
+export type DatabaseAdvocate = typeof advocates.$inferSelect;
+
+/**
+ * Database type for inserting a new advocate
+ */
+export type InsertDatabaseAdvocate = typeof advocates.$inferInsert;
+
+/**
+ * Client-side model for an advocate
+ */
 export interface Advocate {
   id?: number;
   firstName: string;
@@ -10,23 +26,40 @@ export interface Advocate {
   createdAt?: string;
 }
 
-export interface AdvocateCardProps {
+/**
+ * Sort field options for advocates
+ */
+export type SortField = "name" | "experience" | "city";
+
+/**
+ * Props for the advocate card component
+ */
+export interface AdvocateCardProps extends BaseComponentProps {
   advocate: Advocate;
 }
 
-export interface AdvocateGridProps {
+/**
+ * Props for the advocate grid component
+ */
+export interface AdvocateGridProps extends BaseComponentProps {
   advocates: Advocate[];
   isLoading: boolean;
   error: Error | null;
 }
 
-export interface AdvocateListProps {
+/**
+ * Props for the advocate list component
+ */
+export interface AdvocateListProps extends BaseComponentProps {
   advocates: Advocate[];
   isLoading: boolean;
   error: Error | null;
 }
 
-export interface AdvocateSearchProps {
+/**
+ * Props for the advocate search component
+ */
+export interface AdvocateSearchProps extends BaseComponentProps {
   searchTerm: string;
   onSearchChange: (value: string) => void;
   specialties: string[];
@@ -37,17 +70,30 @@ export interface AdvocateSearchProps {
   onCityChange: (value: string | null) => void;
 }
 
-export type SortField = "name" | "experience" | "city";
-export type SortDirection = "asc" | "desc";
-export type ViewMode = "grid" | "list";
-
-export interface ViewToggleProps {
+/**
+ * Props for the view toggle component
+ */
+export interface ViewToggleProps extends BaseComponentProps {
   viewMode: ViewMode;
   onViewModeChange: (mode: ViewMode) => void;
 }
 
+/**
+ * Return type for the useAdvocates hook
+ */
 export interface UseAdvocatesResult {
   advocates: Advocate[];
   isLoading: boolean;
   error: Error | null;
+}
+
+/**
+ * Params for the searchAdvocates function
+ */
+export interface SearchAdvocatesParams {
+  searchTerm?: string;
+  specialty?: string;
+  city?: string;
+  sortField?: SortField;
+  sortDirection?: SortDirection;
 }
