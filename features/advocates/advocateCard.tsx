@@ -5,7 +5,7 @@ import { Phone, MapPin, Award, GraduationCap, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { type FC } from "react"
 import { type AdvocateCardProps, type Advocate } from "@/features/advocates/types/advocate.types"
-import { formatPhoneNumber } from "@/lib/utils"
+import { formatPhoneNumber } from "@/shared/utils"
 
 export const AdvocateCard: FC<AdvocateCardProps> = ({ advocate }) => {
   const initials = `${advocate.firstName.charAt(0)}${advocate.lastName.charAt(0)}`

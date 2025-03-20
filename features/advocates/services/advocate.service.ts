@@ -9,6 +9,7 @@ import { AdvocateMapper } from "@/features/advocates/mappers/advocate.mapper";
 import { eq, like, desc, asc } from "drizzle-orm";
 import { AppError } from "@/shared/types";
 import { withErrorHandling } from "@/shared/utils";
+import { mockAdvocates } from "@/data/mock-advocates";
 
 /**
  * Service for handling advocate-related data operations
@@ -21,10 +22,9 @@ export class AdvocateService {
    */
   static async getAllAdvocates(): Promise<Advocate[]> {
     try {
-      // Using a mock for demonstration purposes
-      // In a real app, this would use the database client
-      const rawData = []; // Replace with actual DB query
-      return rawData.map(AdvocateMapper.toClientModel);
+      // Using mock data for demonstration purposes
+      console.log(`Found ${mockAdvocates.length} advocates in database`);
+      return mockAdvocates;
     } catch (error) {
       console.error("Error in getAllAdvocates:", error);
       throw new AppError("Failed to fetch advocates", "FETCH_ERROR", 500);
@@ -41,20 +41,36 @@ export class AdvocateService {
     params: SearchAdvocatesParams
   ): Promise<Advocate[]> {
     try {
-      // Using a mock for demonstration purposes
-      // In a real app, this would use the database client
-      const mockResults: DatabaseAdvocate[] = [];
+      // Using mockAdvocates for demonstration purposes
+      let results = [...mockAdvocates];
 
-      // Apply specialty filter in memory (simplified example)
-      if (params.specialty) {
-        return mockResults
-          .filter((adv: DatabaseAdvocate) =>
-            adv.specialties.includes(params.specialty as string)
-          )
-          .map(AdvocateMapper.toClientModel);
+      // Apply filters if provided
+      if (params.searchTerm) {
+        const searchLower = params.searchTerm.toLowerCase();
+        results = results.filter(
+          (adv) =>
+            adv.firstName.toLowerCase().includes(searchLower) ||
+            adv.lastName.toLowerCase().includes(searchLower) ||
+            adv.city.toLowerCase().includes(searchLower) ||
+            adv.degree.toLowerCase().includes(searchLower)
+        );
       }
 
-      return mockResults.map(AdvocateMapper.toClientModel);
+      // Apply specialty filter
+      if (params.specialty) {
+        results = results.filter((adv) =>
+          adv.specialties.includes(params.specialty as string)
+        );
+      }
+
+      // Apply city filter
+      if (params.city) {
+        results = results.filter(
+          (adv) => adv.city.toLowerCase() === params.city?.toLowerCase()
+        );
+      }
+
+      return results;
     } catch (error) {
       console.error("Error in searchAdvocates:", error);
       throw new AppError("Failed to search advocates", "SEARCH_ERROR", 500);
@@ -69,16 +85,9 @@ export class AdvocateService {
    */
   static async getAdvocateById(id: number): Promise<Advocate | null> {
     try {
-      // Using a mock for demonstration purposes
-      // In a real app, this would query the database
-      const mockResults: DatabaseAdvocate[] = [];
-      const advocate = mockResults.find((a) => a.id === id);
-
-      if (!advocate) {
-        return null;
-      }
-
-      return AdvocateMapper.toClientModel(advocate);
+      // Using mockAdvocates for demonstration purposes
+      const advocate = mockAdvocates.find((a) => a.id === id);
+      return advocate || null;
     } catch (error) {
       console.error(`Error in getAdvocateById(${id}):`, error);
       throw new AppError(

@@ -12,8 +12,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type FC } from "react"
-import { type AdvocateListProps, type SortField, type SortDirection, type Advocate } from "@/features/advocates/types/advocate.types"
-import { formatPhoneNumber } from "@/lib/utils"
+import { type AdvocateListProps, type SortField, type Advocate } from "@/features/advocates/types/advocate.types"
+import { SortDirection } from "@/shared/types"
+import { formatPhoneNumber } from "@/shared/utils"
 
 export const AdvocateList: FC<AdvocateListProps> = ({ advocates, isLoading, error }) => {
   const [sortField, setSortField] = useState<SortField>("name")

@@ -9,7 +9,8 @@ import { useAdvocates } from "@/features/advocates/advocateHooks/useAdvocates"
 import { ViewToggle } from "@/features/advocates/view-toggle"
 import { AnimatePresence, motion } from "framer-motion"
 import { type ReactElement } from "react"
-import { type ViewMode, type Advocate } from "@/features/advocates/types/advocate.types"
+import { ViewMode } from "@/shared/types"
+import { type Advocate } from "@/features/advocates/types/advocate.types"
 
 export function AdvocatesDirectory(): ReactElement {
   const { advocates, isLoading, error } = useAdvocates()

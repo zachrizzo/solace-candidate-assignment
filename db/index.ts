@@ -1,13 +1,17 @@
-// Use CommonJS syntax
-require("dotenv/config");
-const { drizzle } = require("drizzle-orm/postgres-js");
-const postgres = require("postgres");
-const schema = require("./schema");
+import "dotenv/config";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import * as schema from "./schema";
 
 // Define a mock DB type for when DB is not available
 const createMockDb = () => ({
   select: () => ({
     from: () => [],
+  }),
+  insert: () => ({
+    values: () => ({
+      returning: () => [],
+    }),
   }),
 });
 
@@ -28,4 +32,4 @@ const setup = () => {
   }
 };
 
-module.exports = setup();
+export default setup();
