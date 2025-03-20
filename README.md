@@ -10,9 +10,36 @@ Install dependencies
 npm i
 ```
 
-### Option 1: Full Docker Setup (Recommended)
+## Starting the Application
 
-This option will automatically start Docker (on Mac), set up the PostgreSQL database, seed it, and start the app:
+We have three primary ways to start the application, all designed to use the real PostgreSQL database (never mock data):
+
+### Option 1: UI Only
+
+If you only want to start the UI without the database (database must already be running):
+
+```bash
+npm run dev
+```
+
+### Option 2: Database + UI (Without Seeding)
+
+If you want to start Docker, set up the database (without seeding), and start the UI:
+
+```bash
+npm run start-db-no-seed
+```
+
+This will:
+
+- Automatically start Docker Desktop (on Mac) if it's not running
+- Start the PostgreSQL container
+- Set up the database (but not seed it)
+- Start the Next.js development server
+
+### Option 3: Complete Setup (With Seeding)
+
+For a complete setup including database seeding:
 
 ```bash
 npm run start-with-docker
@@ -22,31 +49,11 @@ This will:
 
 - Automatically start Docker Desktop (on Mac) if it's not running
 - Start the PostgreSQL container
-- Set up and seed the database
+- Set up the database schema
+- Seed the database with initial data
 - Start the Next.js development server
 
-### Option 2: Flexible Startup
-
-Alternatively, you can use our flexible startup option, which will try to use Docker if available, but fall back to mock data:
-
-```bash
-npm run start-dev
-```
-
-### Option 3: Development Only
-
-To just start the app with mock data without any database:
-
-```bash
-npm run dev
-```
-
-This single command will:
-
-- Try to start Docker if available
-- Set up and seed the database if Docker is running
-- Fall back to using mock data if Docker isn't available
-- Start the development server
+**Important:** All of these options require Docker to run the database. We never use mock data. If Docker isn't available, please install and start Docker Desktop first.
 
 ## Features
 

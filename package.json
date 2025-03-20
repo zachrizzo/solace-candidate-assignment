@@ -14,7 +14,8 @@
     "start-docker": "(npm run check-docker && docker compose up -d) || echo 'Continuing without Docker'",
     "setup-db": "(npm run start-docker && sleep 3 && npx drizzle-kit push:pg && npm run seed) || npm run seed",
     "start-dev": "npm run setup-db && npm run dev",
-    "start-with-docker": "./start-with-docker.sh"
+    "start-with-docker": "./start-with-docker.sh",
+    "start-db-no-seed": "./start-without-seeding.sh"
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^5.1.1",
