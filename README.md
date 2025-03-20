@@ -10,11 +10,43 @@ Install dependencies
 npm i
 ```
 
-Run the development server:
+### Option 1: Full Docker Setup (Recommended)
+
+This option will automatically start Docker (on Mac), set up the PostgreSQL database, seed it, and start the app:
+
+```bash
+npm run start-with-docker
+```
+
+This will:
+
+- Automatically start Docker Desktop (on Mac) if it's not running
+- Start the PostgreSQL container
+- Set up and seed the database
+- Start the Next.js development server
+
+### Option 2: Flexible Startup
+
+Alternatively, you can use our flexible startup option, which will try to use Docker if available, but fall back to mock data:
+
+```bash
+npm run start-dev
+```
+
+### Option 3: Development Only
+
+To just start the app with mock data without any database:
 
 ```bash
 npm run dev
 ```
+
+This single command will:
+
+- Try to start Docker if available
+- Set up and seed the database if Docker is running
+- Fall back to using mock data if Docker isn't available
+- Start the development server
 
 ## Features
 

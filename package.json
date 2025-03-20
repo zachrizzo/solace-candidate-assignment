@@ -9,7 +9,12 @@
     "lint": "next lint",
     "generate": "drizzle-kit generate",
     "migrate:up": "node ./db/migrate.js",
-    "seed": "node --loader esbuild-register/loader -r esbuild-register ./db/seed/index.ts"
+    "seed": "node ./db/seed/index.js",
+    "check-docker": "if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then echo 'Docker is running' && exit 0; else echo 'Docker is not running. Using mock data instead.' && exit 1; fi",
+    "start-docker": "(npm run check-docker && docker compose up -d) || echo 'Continuing without Docker'",
+    "setup-db": "(npm run start-docker && sleep 3 && npx drizzle-kit push:pg && npm run seed) || npm run seed",
+    "start-dev": "npm run setup-db && npm run dev",
+    "start-with-docker": "./start-with-docker.sh"
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^5.1.1",

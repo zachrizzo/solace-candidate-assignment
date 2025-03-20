@@ -1,5 +1,4 @@
-const db = require("..");
-const { advocates } = require("../schema");
+"use strict";
 
 const specialties = [
   "Bipolar",

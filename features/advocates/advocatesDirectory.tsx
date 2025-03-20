@@ -18,7 +18,7 @@ export function AdvocatesDirectory(): ReactElement {
   const [selectedCity, setSelectedCity] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>("grid")
 
-  const filteredAdvocates = advocates.filter((advocate: Advocate) => {
+  const filteredAdvocates = advocates?.filter((advocate: Advocate) => {
     const matchesSearch =
       searchTerm === "" ||
       advocate.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -32,14 +32,14 @@ export function AdvocatesDirectory(): ReactElement {
     const matchesCity = !selectedCity || advocate.city.toLowerCase() === selectedCity.toLowerCase()
 
     return matchesSearch && matchesSpecialty && matchesCity
-  })
+  }) || []
 
   const allSpecialties: string[] = Array.from(
-    new Set(advocates.flatMap((advocate: Advocate) => advocate.specialties))
+    new Set(advocates?.flatMap((advocate: Advocate) => advocate.specialties) || [])
   ).sort() as string[]
 
   const allCities: string[] = Array.from(
-    new Set(advocates.map((advocate: Advocate) => advocate.city))
+    new Set(advocates?.map((advocate: Advocate) => advocate.city) || [])
   ).sort() as string[]
 
   return (
